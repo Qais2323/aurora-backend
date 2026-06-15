@@ -406,19 +406,11 @@ exports.uploadProfilePhoto =
         });
       }
 
-      const imagePath =
-        `${req.protocol}://${req.get("host")}/${req.file.path.replace(/\\/g, "/")}`;
-
-      user.profileImage =
-        imagePath;
-
-      await user.save();
-
-      res.json({
-        success: true,
-        profileImage:
-          imagePath,
-      });
+// for online
+const imageUrl = req.file.path; // Cloudinary URL already hai
+user.profileImage = imageUrl;
+await user.save();
+res.json({ success: true, profileImage: imageUrl });
 
     } catch (error) {
 
